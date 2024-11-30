@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom'; 
 import { Container, Button, Typography, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
+import Login from "./components/Authentication/Login";
+import Register from "./components/Authentication/Register"
 import Result from "./components/Result";
 import SliderSelect from "./components/SliderSelect";
 import TenureSelect from "./components/TenureSelect";
@@ -94,6 +96,10 @@ function App() {
             </Container>
           }
         />
+        {/* Route for Login page */}
+       <Route path="/login" element={<Login />} />
+       {/* Route for Register page */} 
+       <Route path="/register" element={<Register />} /> 
       </Routes>
     </div>
   );
