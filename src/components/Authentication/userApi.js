@@ -10,11 +10,13 @@ const BASE_URL = 'http://localhost:8080/user';
  */
 export const login = async (credentials) => {
   try {
+    const authHeader = `Basic ${btoa(`${credentials.username}:${credentials.password}`)}`;
     const response = await axios.get(`${BASE_URL}/login`, {
-      auth: {
-        username: credentials.username,
-        password: credentials.password,
+      headers: {
+        'Authorization': authHeader, // Add Authorization header
+        'Content-Type': 'application/json',
       },
+      withCredentials: true, // Include cookies if needed
     });
     return response.data; // Successfully logged in user data
   } catch (error) {
