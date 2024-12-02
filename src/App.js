@@ -16,6 +16,7 @@ function App() {
   const [term, setTerm] = useState(5);
   const [provider, setProvider] = useState("TD"); 
   const [interestRate, setInterestRate] = useState(5); 
+  const [newHomeOwner, setNewHomeOwner] = useState(false);
 
   const loanAmount = homeValue - downPayment;
 
@@ -90,6 +91,8 @@ function App() {
                 interestRate={interestRate}
                 setInterestRate={setInterestRate}
                 handleProviderChange={handleProviderChange} 
+                newHomeOwner={newHomeOwner}   
+                setNewHomeOwner={setNewHomeOwner} 
               />
               <TenureSelect term={term} setTerm={setTerm} />
               <Result loanAmount={loanAmount} monthlyPayment={monthlyPayment} />

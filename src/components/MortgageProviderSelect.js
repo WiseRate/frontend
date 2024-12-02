@@ -1,12 +1,9 @@
 import React from 'react';
 import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-
 const MortgageProviderSelect = ({ provider, setProvider }) => {
-
   const handleChange = (event) => {
     setProvider(event.target.value);
   };
-
   return (
     <Box mb={2}>
       <FormControl fullWidth>
@@ -28,7 +25,6 @@ const MortgageProviderSelect = ({ provider, setProvider }) => {
     </Box>
   );
 };
-
 export default MortgageProviderSelect;
 
 

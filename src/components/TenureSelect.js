@@ -14,12 +14,12 @@ const TenureSelect = ({term, setTerm}) => {
   return (
     <Box marginTop={4}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Mortgage Term</InputLabel>
+        <InputLabel id="demo-simple-select-label">Amortization Period</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={term}
-          label="Mortgage Term"
+          label="Amortization Period"
           onChange={handleTermChange}
         >
           <MenuItem value={5}>5 years</MenuItem>

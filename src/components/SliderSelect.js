@@ -1,6 +1,6 @@
 import React from 'react';
 import SliderComponent from './common/SliderComponent';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Button, Stack } from '@mui/material';
 import MortgageProviderSelect from './MortgageProviderSelect'; 
 
 const SliderSelect = ({
@@ -10,12 +10,39 @@ const SliderSelect = ({
   setDownPayment,
   interestRate,
   setInterestRate,
-  handleProviderChange
+  handleProviderChange,
+  newHomeOwner,    
+  setNewHomeOwner 
 }) => {
   const loanAmount = homeValue - downPayment;
+  const handleNewHomeOwner = () => {
+    setNewHomeOwner(true); 
+  };
 
+  const handleNotNewHomeOwner = () => {
+    setNewHomeOwner(false); 
+  };
   return (
     <>
+      <Box mb={2}>
+        <Stack direction="row" spacing={2} justifyContent="center">
+          <Button 
+            variant="outlined" 
+            color="primary" 
+            onClick={handleNewHomeOwner}
+          >
+            New Home Owner
+          </Button>
+          <Button 
+            variant="outlined" 
+            color="secondary" 
+            onClick={handleNotNewHomeOwner}
+          >
+            Not a New Home Owner
+          </Button>
+        </Stack>
+      </Box>
+
       <SliderComponent
         min={0}
         max={5000000}
