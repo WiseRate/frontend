@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 const MortgageProviderSelect = ({ provider, setProvider }) => {
-  const handleChange = (event) => {
+  const handleChange = (event,value) => {
     setProvider(event.target.value);
   };
   return (

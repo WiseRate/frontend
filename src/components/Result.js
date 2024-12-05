@@ -11,14 +11,14 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
-  const totalInterest = (monthlyPayment * term * 12) - loanAmount;
+const Result = ({ loanAmount, monthlyPayment, homeValue, term, totalInterest,totalPayment }) => {
 
+  
   const chartData = {
     labels: ['Home Value', 'Total Interest'],
     datasets: [
       {
-        data: [500000, 200000],  // Test with static values
+        data:  [homeValue, totalInterest],  
         backgroundColor: ['#36A2EB', '#FF6384'],
         hoverBackgroundColor: ['#36A2EB', '#FF6384'],
         borderColor: ['#FFFFFF', '#FFFFFF'],
@@ -27,8 +27,6 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
     ],
   };
   
-
-  // Configure chart options
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -60,12 +58,22 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
         <Typography variant="body1">Monthly Payment</Typography>
         <Typography variant="body1">${monthlyPayment}</Typography>
       </Box>
-      
+      <Box display="flex" justifyContent="space-between" mt={2}>
+        <Typography variant="body1">Total Interest Amount</Typography>
+        <Typography variant="body1">${totalInterest}</Typography>
+      </Box>
+      <Box display="flex" justifyContent="space-between" mt={2}>
+        <Typography variant="body1">Total Payment Amount</Typography>
+        <Typography variant="body1">${totalPayment}</Typography>
+      </Box>
       {/*Here is the Pie Chart */}
+      
       <Box mt={3} height={250}>
         <Pie data={chartData} options={chartOptions} />
       </Box>
+      
     </Box>
+    
   );
 };
 

@@ -1,44 +1,98 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { Container, Button, Typography, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Login from "./components/Authentication/Login";
-import Register from "./components/Authentication/Register"
+import Register from "./components/Authentication/Register";
 import Result from "./components/Result";
 import SliderSelect from "./components/SliderSelect";
 import TenureSelect from "./components/TenureSelect";
-import { useState } from "react";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import axios from 'axios';
 
 function App() {
   const [homeValue, setHomeValue] = useState(500000);
   const [downPayment, setDownPayment] = useState(100000);
   const [term, setTerm] = useState(5);
-  const [provider, setProvider] = useState("TD"); 
-  const [interestRate, setInterestRate] = useState(5); 
+  const [provider, setProvider] = useState("TD");
+  const [interestRate, setInterestRate] = useState(5);
   const [newHomeOwner, setNewHomeOwner] = useState(false);
+  const [providerRates, setProviderRates] = useState({}); 
+  const [totalInterest, setTotalInterest] = useState(null);
+  const [totalPayment, setTotalPayment] = useState(null);
 
   const loanAmount = homeValue - downPayment;
 
-  const providerRates = {
-    TD: 5.0,
-    BMO: 5.2,
-    RBC: 5.4,
-    ScotiaBank: 5.6,
-    CIBC: 5.8
-  };
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/v1/bank-rates-simple')
+      .then(response => {
+        setProviderRates(response.data);
+        setInterestRate(response.data.TD || 5.0); 
+      })
+      .catch(error => {
+        console.error('Error fetching provider rates:', error);
+        setProviderRates({
+          TD: 5.0,
+          BMO: 5.2,
+          RBC: 5.4,
+          ScotiaBank: 5.6,
+          CIBC: 5.8,
+        });
+      });
+  }, []);
+
+  useEffect(() => {
+    const data = {
+      loanType: "HOME_LOAN",
+      province: "ON",
+      municipality: "toronto",
+      totalLoanAmount: loanAmount,
+      downPayment: downPayment,
+      interestType: "VARIABLE",
+      isCompoundInterest: true,
+      compoundFrequency: 2,
+      annualInterestRate: interestRate,
+      loanTermMonths: term * 12,
+      paymentFrequency: "MONTHLY",
+      newHomeBuyer: newHomeOwner,
+      startDate: new Date().toISOString().split('T')[0], 
+      fees: {
+        insurancePremium: 50.0,
+        lawyerFee: 1000.0,
+        appraisalFee: 300.0,
+        homeInspectionFee: 500.0,
+        otherFees: 0.0,
+        titleInsurance: 900.0,
+        propertyTax: 833.0
+      },
+      isActive: "true"
+    };
+
+    axios.post('http://localhost:8080/api/v1/loan', data)
+      .then(response => {
+        console.log("Loan Calculation Response:", response.data);
+        const { totalInterest, totalPayment } = response.data;
+        setTotalInterest(totalInterest.toFixed(2));
+        setTotalPayment(totalPayment.toFixed(2));
+      })
+      .catch(error => {
+        console.error("Error calculating loan:", error);
+      });
+  }, [loanAmount, downPayment, interestRate, term, newHomeOwner]);
+
 
   const handleProviderChange = (newProvider) => {
-    setProvider(newProvider); 
-    setInterestRate(providerRates[newProvider]); 
+    setProvider(newProvider);
+    setInterestRate(providerRates[newProvider] || 5.0); 
   };
 
   const calculateMonthlyPayment = (loanAmount, interestRate, term) => {
     const monthlyRate = interestRate / 100 / 12;
     const numberOfPayments = term * 12;
     const monthlyPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
-    return monthlyPayment.toFixed(2); 
+    return monthlyPayment.toFixed(2);
   };
+  
 
   const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, term);
 
@@ -46,7 +100,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-      <Route 
+        <Route 
           path="/" 
           element={
             <Container 
@@ -95,20 +149,20 @@ function App() {
                 setNewHomeOwner={setNewHomeOwner} 
               />
               <TenureSelect term={term} setTerm={setTerm} />
-              <Result loanAmount={loanAmount} monthlyPayment={monthlyPayment} />
+              <Result loanAmount={loanAmount} monthlyPayment={monthlyPayment} totalInterest={totalInterest} 
+                totalPayment={totalPayment} homeValue={homeValue}/>
             </Container>
           }
         />
-        {/* Route for Login page */}
-       <Route path="/login" element={<Login />} />
-       {/* Route for Register page */} 
-       <Route path="/register" element={<Register />} /> 
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
 
 
 
