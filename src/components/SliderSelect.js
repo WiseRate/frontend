@@ -15,6 +15,7 @@ const SliderSelect = ({
   setNewHomeOwner 
 }) => {
   const loanAmount = homeValue - downPayment;
+  
   const handleNewHomeOwner = () => {
     setNewHomeOwner(true); 
   };
@@ -22,20 +23,29 @@ const SliderSelect = ({
   const handleNotNewHomeOwner = () => {
     setNewHomeOwner(false); 
   };
+
   return (
     <>
       <Box mb={2}>
         <Stack direction="row" spacing={2} justifyContent="center">
           <Button 
             variant="outlined" 
-            color="primary" 
+            style={{
+              backgroundColor: newHomeOwner ? '#388E3C' : '#81C784', // Dark green when clicked, light green when not
+              color: '#fff',
+              borderColor: '#388E3C'
+            }}
             onClick={handleNewHomeOwner}
           >
             New Home Owner
           </Button>
           <Button 
             variant="outlined" 
-            color="secondary" 
+            style={{
+              backgroundColor: !newHomeOwner ? '#388E3C' : '#81C784', // Dark green when clicked, light green when not
+              color: '#fff',
+              borderColor: '#388E3C'
+            }}
             onClick={handleNotNewHomeOwner}
           >
             Not a New Home Owner
@@ -64,7 +74,7 @@ const SliderSelect = ({
       />
 
       <Box marginTop={4} marginBottom={4}>
-      <MortgageProviderSelect provider={interestRate} setProvider={handleProviderChange} />
+        <MortgageProviderSelect provider={interestRate} setProvider={handleProviderChange} />
       </Box>
 
       <SliderComponent
@@ -75,12 +85,11 @@ const SliderSelect = ({
         value={interestRate}  
         onChange={(e, value) => setInterestRate(value)}  
       />
-
-
     </>
   );
 };
 
 export default SliderSelect;
+
 
 

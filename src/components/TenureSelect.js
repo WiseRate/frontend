@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 const TenureSelect = ({term, setTerm}) => {
 
   const handleTermChange = (event,value) => {
-    setTerm(value);
+    setTerm(event.target.value);
   };
 
   return (
