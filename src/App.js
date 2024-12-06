@@ -10,6 +10,7 @@ import TenureSelect from "./components/TenureSelect";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import Amortization from './components/Amortization/Amortization';
 import Cookies from 'js-cookie';
+import DownloadPdf from './components/Amortization/downloadPdf';
 import axios from 'axios';
 
 function App() {
@@ -169,7 +170,7 @@ function App() {
               <TenureSelect term={term} setTerm={setTerm} />
               <Result loanAmount={loanAmount} monthlyPayment={monthlyPayment} totalInterest={totalInterest}
                 totalPayment={totalPayment} homeValue={homeValue} />
-            
+
             </Container>
           }
         />
@@ -181,8 +182,8 @@ function App() {
           loanAmount={loanAmount}
           interestRate={interestRate}
           term={term}
-       />} /> 
-
+        />} />
+        <Route path="/download-pdf" element={<DownloadPdf />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

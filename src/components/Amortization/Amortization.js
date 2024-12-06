@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Button, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import Cookies from 'js-cookie';
+import './Amortization.css';
+import DownloadPdf from './downloadPdf';
+
+
 
 const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   const [amortizationData, setAmortizationData] = useState([]);
@@ -10,50 +14,42 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   const [newHomeOwner, setNewHomeOwner] = useState(false);
   const [error, setError] = useState(null);
   const [authHeader, setAuthHeader] = useState('');
+  const data = {
+    loanType: "HOME_LOAN",
+    province: "ON",
+    municipality: "toronto",
+    totalLoanAmount: loanAmount,
+    downPayment: downPayment,
+    interestType: "VARIABLE",
+    isCompoundInterest: true,
+    compoundFrequency: 2,
+    annualInterestRate: interestRate,
+    loanTermMonths: term * 12,
+    paymentFrequency: "MONTHLY",
+    newHomeBuyer: newHomeOwner,
+    isActive: "true",
+    fees: {}
+  };
 
   useEffect(() => {
     setLoading(true);
     setError(null);
 
-    // Set AuthHeader via Cookies
     setAuthHeader(Cookies.get('user'));
 
-    const data = {
-      loanType: "HOME_LOAN",
-      province: "ON",
-      municipality: "toronto",
-      totalLoanAmount: loanAmount,
-      downPayment: downPayment,
-      interestType: "VARIABLE",
-      isCompoundInterest: true,
-      compoundFrequency: 2,
-      annualInterestRate: interestRate,
-      loanTermMonths: term * 12,
-      paymentFrequency: "MONTHLY",
-      newHomeBuyer: newHomeOwner,
-      isActive: "true",
-      fees: {
-
-      }
-    };
-
-    // Post data to backend for amortization calculation
-    axios.post('http://localhost:8080/api/v1/amortization-schedule', data, {
-      withCredentials: true,
-      // auth: {
-      //   username: 'yourUsername',
-      //   password: 'yourPassword'
-      // }
-      headers: {
-        'Authorization': authHeader,
-      }
-    })
-      .then(response => {
+    axios
+      .post('http://localhost:8080/api/v1/amortization-schedule', data, {
+        withCredentials: true,
+        headers: {
+          'Authorization': authHeader,
+        },
+      })
+      .then((response) => {
         console.log("Amortization Schedule Response:", response.data);
         setAmortizationData(response.data.amortizationSchedule);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching amortization schedule:", error);
         setError("Failed to fetch amortization schedule. Please try again later.");
         setLoading(false);
@@ -61,18 +57,25 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   }, [loanAmount, interestRate, term]);
 
   return (
-    <Box sx={{ width: '100%', overflow: 'hidden' }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
+    <Box className="amortization-container">
+      <Typography variant="h3" className="amortization-title">
         Amortization Schedule
       </Typography>
-
+      {/* <Box sx={{ display: "flex", justifyContent:"flex-end", marginBottom: 2,  }}>
+        <DownloadPdf />
+      </Box> */}
+      <Box sx={{ position: 'absolute', right: '350px', top: '90px', marginBottom: 2 }}>
+        <DownloadPdf data={data} authHeader={authHeader} />
+      </Box>
       {loading ? (
-        <Typography>Loading...</Typography>
+        <Typography className="loading-text">Loading...</Typography>
       ) : error ? (
-        <Typography color="error">{error}</Typography>
+        <Typography className="error-text">{error}</Typography>
       ) : (
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableContainer component={Paper} className="table-container">
+
+          <Table aria-label="amortization schedule table">
+
             <TableHead>
               <TableRow>
                 <TableCell>Year</TableCell>
@@ -80,7 +83,9 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
                 <TableCell>Principal Paid</TableCell>
                 <TableCell>Interest Paid</TableCell>
                 <TableCell>Remaining Balance</TableCell>
+
               </TableRow>
+
             </TableHead>
             <TableBody>
               {amortizationData.map((row, index) => (
