@@ -8,13 +8,9 @@ import Result from "./components/Result";
 import SliderSelect from "./components/SliderSelect";
 import TenureSelect from "./components/TenureSelect";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-<<<<<<< HEAD
 import Amortization from './components/Amortization/Amortization';
 import Cookies from 'js-cookie';
-import { useEffect } from 'react';
-=======
 import axios from 'axios';
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,7 +20,6 @@ function App() {
   const [provider, setProvider] = useState("TD");
   const [interestRate, setInterestRate] = useState(5);
   const [newHomeOwner, setNewHomeOwner] = useState(false);
-<<<<<<< HEAD
   const loanAmount = homeValue - downPayment;
 
 
@@ -33,29 +28,21 @@ function App() {
   useEffect(() => {
     const userCookie = Cookies.get('user');
     if (userCookie) {
-      setUser(JSON.parse(userCookie)); 
+      setUser(JSON.parse(userCookie));
     }
   }, []);
 
-  const providerRates = {
-    TD: 5.0,
-    BMO: 5.2,
-    RBC: 5.4,
-    ScotiaBank: 5.6,
-    CIBC: 5.8
-  };
-=======
-  const [providerRates, setProviderRates] = useState({}); 
+  const [providerRates, setProviderRates] = useState({});
   const [totalInterest, setTotalInterest] = useState(null);
   const [totalPayment, setTotalPayment] = useState(null);
 
-  const loanAmount = homeValue - downPayment;
+
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/v1/bank-rates-simple')
       .then(response => {
         setProviderRates(response.data);
-        setInterestRate(response.data.TD || 5.0); 
+        setInterestRate(response.data.TD || 5.0);
       })
       .catch(error => {
         console.error('Error fetching provider rates:', error);
@@ -68,6 +55,7 @@ function App() {
         });
       });
   }, []);
+
 
   useEffect(() => {
     const data = {
@@ -83,7 +71,7 @@ function App() {
       loanTermMonths: term * 12,
       paymentFrequency: "MONTHLY",
       newHomeBuyer: newHomeOwner,
-      startDate: new Date().toISOString().split('T')[0], 
+      startDate: new Date().toISOString().split('T')[0],
       fees: {
         insurancePremium: 50.0,
         lawyerFee: 1000.0,
@@ -108,11 +96,10 @@ function App() {
       });
   }, [loanAmount, downPayment, interestRate, term, newHomeOwner]);
 
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
 
   const handleProviderChange = (newProvider) => {
     setProvider(newProvider);
-    setInterestRate(providerRates[newProvider] || 5.0); 
+    setInterestRate(providerRates[newProvider] || 5.0);
   };
 
   const calculateMonthlyPayment = (loanAmount, interestRate, term) => {
@@ -121,26 +108,26 @@ function App() {
     const monthlyPayment = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
     return monthlyPayment.toFixed(2);
   };
-  
+
 
   const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, term);
 
-  
+
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
-            <Container 
-              sx={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                height: '100vh', 
-                textAlign: 'center' 
+            <Container
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
+                textAlign: 'center'
               }}
             >
               <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
@@ -152,20 +139,20 @@ function App() {
 
               <CurrencyExchangeIcon sx={{ fontSize: 100, color: 'primary.main', mb: 4 }} />
 
-              <Button 
-                variant="contained" 
-                color="primary" 
+              <Button
+                variant="contained"
+                color="primary"
                 href="/mortgage-calculator"
               >
                 Get Started
               </Button>
-            
+
             </Container>
           }
         />
 
-        <Route 
-          path="/mortgage-calculator" 
+        <Route
+          path="/mortgage-calculator"
           element={
             <Container sx={{ marginTop: 4, width: "50%" }}>
               <SliderSelect
@@ -175,28 +162,30 @@ function App() {
                 setDownPayment={setDownPayment}
                 interestRate={interestRate}
                 setInterestRate={setInterestRate}
-                handleProviderChange={handleProviderChange} 
-                newHomeOwner={newHomeOwner}   
-                setNewHomeOwner={setNewHomeOwner} 
+                handleProviderChange={handleProviderChange}
+                newHomeOwner={newHomeOwner}
+                setNewHomeOwner={setNewHomeOwner}
               />
               <TenureSelect term={term} setTerm={setTerm} />
-              <Result loanAmount={loanAmount} monthlyPayment={monthlyPayment} totalInterest={totalInterest} 
-                totalPayment={totalPayment} homeValue={homeValue}/>
+              <Result loanAmount={loanAmount} monthlyPayment={monthlyPayment} totalInterest={totalInterest}
+                totalPayment={totalPayment} homeValue={homeValue} />
+            
             </Container>
           }
         />
-<<<<<<< HEAD
         {/* Route for Login page */}
-       <Route path="/login" element={<Login />} />
-       {/* Route for Register page */} 
-       <Route path="/register" element={<Register />} /> 
-      {/* Route for Amortization page */}
-      <Route  path="/amortization"  element={<Amortization />} 
-        />
-=======
+        <Route path="/login" element={<Login />} />
+        {/* Route for Register page */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/amortization" element={<Amortization
+          loanAmount={loanAmount}
+          interestRate={interestRate}
+          term={term}
+       />} /> 
+
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
       </Routes>
 
     </div>

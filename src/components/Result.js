@@ -12,15 +12,9 @@ import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-<<<<<<< HEAD
-const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
-  const totalInterest = (monthlyPayment * term * 12) - loanAmount;
-  const navigate = useNavigate();
-=======
 const Result = ({ loanAmount, monthlyPayment, homeValue, term, totalInterest,totalPayment }) => {
-
+const navigate = useNavigate();
   
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
   const chartData = {
     labels: ['Home Value', 'Total Interest'],
     datasets: [
@@ -33,13 +27,10 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term, totalInterest,tot
       },
     ],
   };
-<<<<<<< HEAD
 
 
   // Configure chart options
-=======
   
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -76,9 +67,7 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term, totalInterest,tot
         <Typography variant="body1">Monthly Payment</Typography>
         <Typography variant="body1">${monthlyPayment}</Typography>
       </Box>
-<<<<<<< HEAD
 
-=======
       <Box display="flex" justifyContent="space-between" mt={2}>
         <Typography variant="body1">Total Interest Amount</Typography>
         <Typography variant="body1">${totalInterest}</Typography>
@@ -87,13 +76,11 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term, totalInterest,tot
         <Typography variant="body1">Total Payment Amount</Typography>
         <Typography variant="body1">${totalPayment}</Typography>
       </Box>
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
       {/*Here is the Pie Chart */}
       
       <Box mt={3} height={250}>
         <Pie data={chartData} options={chartOptions} />
       </Box>
-<<<<<<< HEAD
 
       {/* Button to navigate to Amortization page */}
       <Box mt={3}>
@@ -106,11 +93,8 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term, totalInterest,tot
     </Box>
 
 
-=======
-      
-    </Box>
+
     
->>>>>>> c3fcd22de0c8e3e92eb9de6c8fdbda27e0a64a6c
   );
 };
 

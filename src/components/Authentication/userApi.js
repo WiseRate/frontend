@@ -8,9 +8,8 @@ const BASE_URL = 'http://localhost:8080/user';
  * @param {Object} credentials - Contains username and password
  * @returns {Promise<Object>} - The logged-in user's data
  */
-export const login = async (credentials) => {
+export const login = async (authHeader) => {
   try {
-    const authHeader = `Basic ${btoa(`${credentials.username}:${credentials.password}`)}`;
     const response = await axios.get(`${BASE_URL}/login`, {
       headers: {
         'Authorization': authHeader, // Add Authorization header

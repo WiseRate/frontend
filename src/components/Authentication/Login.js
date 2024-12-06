@@ -23,12 +23,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const authHeader = `Basic ${btoa(`${formData.username}:${formData.password}`)}`;
             console.log('Attempting login with:', formData);
-            const userData = await login(formData);
+            const userData = await login(authHeader);
             console.log('Login successful:', userData);
             alert(`Welcome, ${userData.username}!`);
             // Save user data in a cookie
-            Cookies.set('user', JSON.stringify(userData), { expires: 7 });
+            Cookies.set('user', JSON.stringify(authHeader), { expires: 7 });
             //localStorage.setItem('user', JSON.stringify(userData));
             navigate('/');
 
@@ -39,9 +40,9 @@ const Login = () => {
         };
     }
 
-    
 
-  
+
+
     return (
         <div className="login-container">
             <div>
