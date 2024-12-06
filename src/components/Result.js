@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -8,12 +8,13 @@ import {
   Legend,
   Title,
 } from 'chart.js';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
   const totalInterest = (monthlyPayment * term * 12) - loanAmount;
-
+  const navigate = useNavigate();
   const chartData = {
     labels: ['Home Value', 'Total Interest'],
     datasets: [
@@ -26,7 +27,7 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
       },
     ],
   };
-  
+
 
   // Configure chart options
   const chartOptions = {
@@ -47,6 +48,11 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
     maintainAspectRatio: false,
   };
 
+  // Function to navigate to Amortization page
+  const goToAmortization = () => {
+    navigate('/amortization');  
+  };
+
   return (
     <Box mt={2}>
       <Box marginBottom={2} marginTop={4}>
@@ -60,12 +66,23 @@ const Result = ({ loanAmount, monthlyPayment, homeValue, term }) => {
         <Typography variant="body1">Monthly Payment</Typography>
         <Typography variant="body1">${monthlyPayment}</Typography>
       </Box>
-      
+
       {/*Here is the Pie Chart */}
       <Box mt={3} height={250}>
         <Pie data={chartData} options={chartOptions} />
       </Box>
+
+      {/* Button to navigate to Amortization page */}
+      <Box mt={3}>
+      <Button variant="contained" color="primary" onClick={goToAmortization}>
+          View Amortization Schedule
+        </Button>
+
+
+      </Box>
     </Box>
+
+
   );
 };
 

@@ -9,16 +9,29 @@ import SliderSelect from "./components/SliderSelect";
 import TenureSelect from "./components/TenureSelect";
 import { useState } from "react";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import Amortization from './components/Amortization/Amortization';
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 function App() {
+  const [user, setUser] = useState(null);
   const [homeValue, setHomeValue] = useState(500000);
   const [downPayment, setDownPayment] = useState(100000);
   const [term, setTerm] = useState(5);
   const [provider, setProvider] = useState("TD"); 
   const [interestRate, setInterestRate] = useState(5); 
   const [newHomeOwner, setNewHomeOwner] = useState(false);
-
   const loanAmount = homeValue - downPayment;
+
+
+
+  // Check if user is logged in (if a cookie is present)
+  useEffect(() => {
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+      setUser(JSON.parse(userCookie)); 
+    }
+  }, []);
 
   const providerRates = {
     TD: 5.0,
@@ -42,6 +55,7 @@ function App() {
 
   const monthlyPayment = calculateMonthlyPayment(loanAmount, interestRate, term);
 
+  
   return (
     <div className="App">
       <Navbar />
@@ -75,6 +89,7 @@ function App() {
               >
                 Get Started
               </Button>
+            
             </Container>
           }
         />
@@ -103,7 +118,11 @@ function App() {
        <Route path="/login" element={<Login />} />
        {/* Route for Register page */} 
        <Route path="/register" element={<Register />} /> 
+      {/* Route for Amortization page */}
+      <Route  path="/amortization"  element={<Amortization />} 
+        />
       </Routes>
+
     </div>
   );
 }
