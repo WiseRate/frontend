@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import { Button, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom"; 
 import Cookies from "js-cookie";
 import { use } from "react";
 
 function DownloadPdf({ data, authHeader }) {
+  const navigate = useNavigate();
   // const [authHeader, setAuthHeader] = useState("");
   // useEffect(() => {
   //   setAuthHeader(Cookies.get("user"));
@@ -22,6 +24,7 @@ function DownloadPdf({ data, authHeader }) {
 
     if (!authHeader) {
       console.error("Authentication token is missing");
+      navigate("/login");
       return;
     }
     try {
