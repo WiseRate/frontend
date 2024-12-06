@@ -83,7 +83,7 @@ const navigate = useNavigate();
       </Box>
 
       {/* Button to navigate to Amortization page */}
-      <Box mt={3}>
+      <Box sx={{ display: "flex", justifyContent: "center", marginTop: 10, marginBottom: 10  }}>
       <Button variant="contained" color="primary" onClick={goToAmortization}>
           View Amortization Schedule
         </Button>

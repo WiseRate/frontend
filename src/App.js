@@ -12,6 +12,7 @@ import Amortization from './components/Amortization/Amortization';
 import Cookies from 'js-cookie';
 import DownloadPdf from './components/Amortization/downloadPdf';
 import axios from 'axios';
+import Footer from './components/Layout/Footer';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -187,8 +188,9 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+       
       </Routes>
-
+<Footer />  
     </div>
   );
 }

@@ -4,6 +4,7 @@
   overflow: hidden;
   padding: 20px;
   text-align: center;
+  height: 100dvh;
 }
 
 .amortization-title {

@@ -62,7 +62,7 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
         Amortization Schedule
       </Typography>
       {/* <Box sx={{ display: "flex", justifyContent:"flex-end", marginBottom: 2,  }}>
-        <DownloadPdf />
+        <DownloadPdf data={data} authHeader={authHeader} />
       </Box> */}
       <Box sx={{ position: 'absolute', right: '350px', top: '90px', marginBottom: 2 }}>
         <DownloadPdf data={data} authHeader={authHeader} />
