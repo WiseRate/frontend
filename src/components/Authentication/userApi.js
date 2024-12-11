@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // Base URL for API calls
-const BASE_URL = 'http://localhost:8080/user';
+// const BASE_URL = 'http://localhost:8080/user';
+// USING .env to get URL dynamically
+const BASE_URL = process.env.REACT_APP_API_URL + '/user';
 
 /**
  * Login user

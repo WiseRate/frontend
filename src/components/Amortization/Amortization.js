@@ -14,6 +14,8 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   const [newHomeOwner, setNewHomeOwner] = useState(false);
   const [error, setError] = useState(null);
   const [authHeader, setAuthHeader] = useState('');
+  const BASE_URL = process.env.REACT_APP_API_URL;
+
   const data = {
     loanType: "HOME_LOAN",
     province: "ON",
@@ -38,7 +40,8 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
     setAuthHeader(Cookies.get('user'));
 
     axios
-      .post('http://localhost:8080/api/v1/amortization-schedule', data, {
+      // .post('http://localhost:8080/api/v1/amortization-schedule', data, {
+      .post(`${BASE_URL}/api/v1/amortization-schedule`, data, {
         withCredentials: true,
         headers: {
           'Authorization': authHeader,

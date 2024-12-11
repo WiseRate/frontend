@@ -9,6 +9,7 @@ import { use } from "react";
 
 function DownloadPdf({ data, authHeader }) {
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_API_URL;
   // const [authHeader, setAuthHeader] = useState("");
   // useEffect(() => {
   //   setAuthHeader(Cookies.get("user"));
@@ -30,7 +31,8 @@ function DownloadPdf({ data, authHeader }) {
     try {
       console.log("Downloading PDF...");
       const response = await axios.post(
-        "http://localhost:8080/api/v1/generate-amortization-pdf",
+        // "http://localhost:8080/api/v1/generate-amortization-pdf",
+        `${BASE_URL}/api/v1/generate-amortization-pdf`,
         data, {
         withCredentials: true,
         headers: {

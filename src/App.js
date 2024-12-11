@@ -15,6 +15,10 @@ import axios from 'axios';
 import Footer from './components/Layout/Footer';
 
 function App() {
+
+  // console.log('Environment Variables:', process.env);
+  const BASE_URL = process.env.REACT_APP_API_URL;
+  // console.log('BASE_URL:', BASE_URL);
   const [user, setUser] = useState(null);
   const [homeValue, setHomeValue] = useState(500000);
   const [downPayment, setDownPayment] = useState(100000);
@@ -41,7 +45,8 @@ function App() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/bank-rates-simple')
+    // axios.get('http://localhost:8080/api/v1/bank-rates-simple')
+    axios.get(`${BASE_URL}/api/v1/bank-rates-simple`)
       .then(response => {
         setProviderRates(response.data);
         setInterestRate(response.data.TD || 5.0);
@@ -86,7 +91,8 @@ function App() {
       isActive: "true"
     };
 
-    axios.post('http://localhost:8080/api/v1/loan', data)
+    // axios.post('http://localhost:8080/api/v1/loan', data)
+    axios.post(`${BASE_URL}/api/v1/loan`, data)
       .then(response => {
         console.log("Loan Calculation Response:", response.data);
         const { totalInterest, totalPayment } = response.data;
