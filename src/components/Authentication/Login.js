@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from './userApi';
 import './auth.css';
@@ -40,13 +40,21 @@ const Login = () => {
         };
     }
 
-
+    useEffect(() => {
+        // Reveal the line after the page loads
+        const revealLine = document.querySelector('.reveal-line');
+        setTimeout(() => {
+          revealLine.classList.add('visible');
+        }, 500); // Adjust the timing as needed
+      }, []);
 
 
     return (
         <div className="height">
+            <p className="reveal-line">Log in to manage your mortgage calculations and take control of your financial future!</p>
+
             <div className="login-container">
-                <div>
+                <div className='form-group'>
                     <h2>Login</h2>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     <form onSubmit={handleSubmit}>
@@ -70,8 +78,8 @@ const Login = () => {
                                 required
                             />
                         </div>
-                        <button type="submit">Login</button>
-                        <button onClick={() => navigate('/register')}>
+                        <button className='Auth-button' type="submit">Login</button>
+                        <button  onClick={() => navigate('/register')}>
                             Register
                         </button>
                     </form>

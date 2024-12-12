@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { createUser } from "./userApi";
 import { useNavigate } from "react-router-dom";
 import "./auth.css";
@@ -35,12 +35,21 @@ const RegisterPage = () => {
       setError("Registration failed. Please try again.");
     }
   };
+  useEffect(() => {
+    // Reveal the line after the page loads
+    const revealLine = document.querySelector('.reveal-line');
+    setTimeout(() => {
+      revealLine.classList.add('visible');
+    }, 500); // Adjust the timing as needed
+  }, []);
 
   return (
     <div className="height">
+      <p className="reveal-line">Unlock your path to financial clarity – Register to start calculating your mortgage and explore smarter financial decisions!</p>
       <div className="register-container">
-        <div>
+        <div className="form-group">
           <h2>Register</h2>
+
 
           {/* Registration form */}
           <form onSubmit={handleRegister}>
@@ -78,7 +87,7 @@ const RegisterPage = () => {
                 required
               />
             </div>
-            <button type="submit">Register</button>
+            <button className="Auth-button" type="submit">Register</button>
             {error && <p className="error-message">{error}</p>}
             {successMessage && (
               <p className="success-message">{successMessage}</p>

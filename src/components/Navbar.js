@@ -11,55 +11,58 @@ const Navbar = () => {
 
   // Check if the user is already logged in (cookie is present)
   const userCookie = Cookies.get('user');
-  const isLoggedIn = userCookie ? true : false;
+  const isLoggedIn = Boolean(userCookie);
 
   // Function to handle logout
   const handleLogout = () => {
-      Cookies.remove('user'); 
-      navigate('/'); 
+    Cookies.remove('user');
+    alert('Successfully, You have been logged out');
+    navigate('/');
   };
   return (
-    <AppBar position="static">
-      <Container>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', gap: 6 }}>
-            <Link href="/" sx={{ textDecoration: 'none', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                Home
-              </Typography>
-            </Link>
-            <Link href="/mortgage-calculator" sx={{ textDecoration: 'none', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                Mortgage Calculator
-              </Typography>
-            </Link>
-          </Box>
-
-          <Box>
-
-          {isLoggedIn ? (
-               <Typography 
-                sx={{ color: 'white', fontWeight: 700}}
-                onClick={handleLogout}
-              >
-                Logout
-                </Typography>
-            ) : (
-              <Link href="/login" sx={{ textDecoration: 'none', color: 'white' }}>
+      <AppBar position="static">
+        <Container>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', gap: 6 }}>
+              <Link href="/" sx={{ textDecoration: 'none', color: 'white' }}>
                 <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                  Login
+                  Home
                 </Typography>
               </Link>
-            )}
-            {/* <Link href="/login" sx={{ textDecoration: 'none', color: 'white' }}>
+              <Link href="/mortgage-calculator" sx={{ textDecoration: 'none', color: 'white' }}>
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                  Mortgage Calculator
+                </Typography>
+              </Link>
+            </Box>
+
+            <Box>
+
+              {isLoggedIn ? (
+
+                <Typography
+                  sx={{ color: 'white', fontWeight: 700 }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Typography>
+
+              ) : (
+                <Link href="/login" sx={{ textDecoration: 'none', color: 'white' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                    Login
+                  </Typography>
+                </Link>
+              )}
+              {/* <Link href="/login" sx={{ textDecoration: 'none', color: 'white' }}>
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
                 Login
               </Typography>
             </Link> */}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
   )
 }
 

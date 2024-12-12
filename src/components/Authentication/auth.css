@@ -3,27 +3,40 @@
 /* Container for both register and login pages */
 .register-container,
 .login-container {
+  box-sizing: border-box;
   width: 100%;
-
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+  background-color:aliceblue;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 50px;
-  /* display: flex;
-    justify-content: center; */
-}
+  box-sizing: border-box;
+  box-shadow: 20px 20px 100px rgba(21, 21, 21, 0.534),
+    inset -20px -20px 60px rgba(255, 255, 255, 0.951);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    box-sizing: border-box;
+  }
+   
+    
+
 .height {
-  height: 100dvh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("../images/HomeBackground.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Title for both register and login */
 h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 20px;
+  margin: 0 auto;
 }
 
 /* Form layout */
@@ -31,21 +44,25 @@ form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius:2%;
 }
 
 /* Label styling */
 label {
-  font-size: 14px;
-  color: #555;
+  font-size: 16px;
+  color: #0d0d0d;
 }
 
 /* Input fields */
 input {
   padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
+  font-size: 16px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 20px 20px 100px rgba(21, 21, 21, 0.534),
+    inset -20px -20px 60px rgba(255, 255, 255, 0.951);
 }
 
 input:focus {
@@ -53,16 +70,26 @@ input:focus {
 }
 
 /* Buttons */
-button {
+.Auth-button {
   padding: 12px;
   font-size: 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 14px;
+  cursor: pointer;
+  background-color:#0056b3;
+  color: white;
+}
+
+button {   padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 14px;
   cursor: pointer;
 }
 
+
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: blue;
   color: white;
   transition: background-color 0.3s ease;
 }
@@ -71,15 +98,6 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* Register Button */
-button[type="button"] {
-  background-color: #28a745;
-  color: white;
-}
-
-button[type="button"]:hover {
-  background-color: #218838;
-}
 
 /* Error and Success Messages */
 .error-message,
@@ -88,6 +106,24 @@ button[type="button"]:hover {
   text-align: center;
   margin-top: 10px;
 }
+
+.reveal-line {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 /* Responsive styling */
 @media (max-width: 600px) {
