@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { login } from './userApi';
 import './auth.css';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     // State to store the form data (username, password)
@@ -27,31 +29,34 @@ const Login = () => {
             console.log('Attempting login with:', formData);
             const userData = await login(authHeader);
             console.log('Login successful:', userData);
-            alert(`Welcome, ${userData.username}!`);
+            toast.success(`Welcome, ${userData.username}!`);
             // Save user data in a cookie
             Cookies.set('user', JSON.stringify(authHeader), { expires: 7 });
             //localStorage.setItem('user', JSON.stringify(userData));
-            navigate('/');
+            setTimeout(() => {
+                navigate("/");
+              }, 2000);
 
         } catch (err) {
             console.error('Login error:', err.response || err.message);
             setError('Invalid username or password');
+            toast.error("Invalid username or password. Please try again.");
 
         };
     }
 
-    useEffect(() => {
-        // Reveal the line after the page loads
-        const revealLine = document.querySelector('.reveal-line');
-        setTimeout(() => {
-          revealLine.classList.add('visible');
-        }, 500); // Adjust the timing as needed
-      }, []);
+    // useEffect(() => {
+    //     // Reveal the line after the page loads
+    //     const revealLine = document.querySelector('.reveal-line');
+    //     setTimeout(() => {
+    //       revealLine.classList.add('visible');
+    //     }, 500); // Adjust the timing as needed
+    //   }, []);
 
 
     return (
         <div className="height">
-            <p className="reveal-line">Log in to manage your mortgage calculations and take control of your financial future!</p>
+            {/* <p className="reveal-line">Log in to manage your mortgage calculations and take control of your financial future!</p> */}
 
             <div className="login-container">
                 <div className='form-group'>
@@ -85,6 +90,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

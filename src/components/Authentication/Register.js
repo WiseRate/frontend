@@ -1,6 +1,8 @@
 import React, { useState , useEffect} from "react";
 import { createUser } from "./userApi";
+import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import "./auth.css";
 
 const RegisterPage = () => {
@@ -28,24 +30,30 @@ const RegisterPage = () => {
     try {
       console.log("Submitting data:", formData);
       const data = await createUser(formData);
-      setSuccessMessage(`User ${data.username} registered successfully!`);
-      navigate("/login");
+      // Show success toast
+      toast.success(`User ${data.username} registered successfully!`);
+      //setSuccessMessage(`User ${data.username} registered successfully!`);
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (err) {
       console.error("Registration error:", err.response || err.message);
       setError("Registration failed. Please try again.");
+    // Show error toast
+    toast.error("Registration failed. Please try again.");
     }
   };
-  useEffect(() => {
-    // Reveal the line after the page loads
-    const revealLine = document.querySelector('.reveal-line');
-    setTimeout(() => {
-      revealLine.classList.add('visible');
-    }, 500); // Adjust the timing as needed
-  }, []);
+  // useEffect(() => {
+  //   // Reveal the line after the page loads
+  //   const revealLine = document.querySelector('.reveal-line');
+  //   setTimeout(() => {
+  //     revealLine.classList.add('visible');
+  //   }, 500);
+  // }, []);
 
   return (
     <div className="height">
-      <p className="reveal-line">Unlock your path to financial clarity – Register to start calculating your mortgage and explore smarter financial decisions!</p>
+      {/* <p className="reveal-line">Unlock your path to financial clarity – Register to start calculating your mortgage and explore smarter financial decisions!</p> */}
       <div className="register-container">
         <div className="form-group">
           <h2>Register</h2>
@@ -94,7 +102,10 @@ const RegisterPage = () => {
             )}
           </form>
         </div>
+        
       </div>
+       {/* Toast Container to display toast notifications  */}
+      <ToastContainer />
     </div>
   );
 };
