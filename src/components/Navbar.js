@@ -21,7 +21,7 @@ const Navbar = () => {
     if (Cookies.get('user') !== undefined) {
       setIsLoggedIn(true);
     }
-  }, [isLoggedIn]);
+  }, [userCookie]);
 
 
   // Function to handle logout
@@ -55,7 +55,7 @@ const Navbar = () => {
               {isLoggedIn ? (
 
                 <Typography
-                  sx={{ color: 'white', fontWeight: 700 }}
+                  sx={{ color: 'white', fontWeight: 700, cursor: 'pointer' }}
                   onClick={handleLogout}
                 >
                   Logout

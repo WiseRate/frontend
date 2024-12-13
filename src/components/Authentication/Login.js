@@ -29,13 +29,10 @@ const Login = () => {
             console.log('Attempting login with:', formData);
             const userData = await login(authHeader);
             console.log('Login successful:', userData);
-            toast.success(`Welcome, ${userData.username}!`);
-            // Save user data in a cookie
             Cookies.set('user', JSON.stringify(authHeader), { expires: 7 });
+            toast.success(`Welcome, ${userData.username}!`);
             //localStorage.setItem('user', JSON.stringify(userData));
-            setTimeout(() => {
-                navigate("/");
-              }, 2000);
+            navigate("/");
 
         } catch (err) {
             console.error('Login error:', err.response || err.message);
