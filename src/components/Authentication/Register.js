@@ -31,7 +31,7 @@ const RegisterPage = () => {
       console.log("Submitting data:", formData);
       const data = await createUser(formData);
       // Show success toast
-      toast.success(`User ${data.username} registered successfully!`);
+      toast.success(`Hi, ${data.username} registered successfully!`);
       //setSuccessMessage(`User ${data.username} registered successfully!`);
       
       navigate("/login");
