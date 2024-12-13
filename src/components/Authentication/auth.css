@@ -21,12 +21,14 @@
     
 
 .height {
-  height: 100vh;
+  height: auto;
+  min-height: 100dvh;
+  overflow-y: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-background-image: url("../images/HomeBackground.webp"); 
+  background-image: url("../images/HomeBackground.webp"); 
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

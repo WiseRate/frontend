@@ -4,7 +4,13 @@
   overflow: hidden;
   padding: 20px;
   text-align: center;
-  height: 100dvh;
+  height: auto;
+  min-height: 100dvh;
+  overflow-y: auto;
+  background-image: url("../images/HomeBackground.webp"); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .amortization-title {
