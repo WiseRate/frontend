@@ -5,8 +5,7 @@ import Cookies from 'js-cookie';
 import './Amortization.css';
 import DownloadPdf from './downloadPdf';
 
-
-
+// Component for displaying the amortization schedule
 const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   const [amortizationData, setAmortizationData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,6 +15,7 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   const [authHeader, setAuthHeader] = useState('');
   const BASE_URL = process.env.REACT_APP_API_URL;
 
+  // Data to be sent in the API request
   const data = {
     loanType: "HOME_LOAN",
     province: "ON",
@@ -33,12 +33,14 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
     fees: {}
   };
 
+  // Fetch amortization schedule when loan details change
   useEffect(() => {
     setLoading(true);
     setError(null);
 
     setAuthHeader(Cookies.get('user'));
 
+    // Make an API call to fetch the amortization schedule
     axios
       // .post('http://localhost:8080/api/v1/amortization-schedule', data, {
       .post(`${BASE_URL}/api/v1/amortization-schedule`, data, {
