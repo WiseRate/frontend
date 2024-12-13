@@ -33,9 +33,7 @@ const RegisterPage = () => {
       // Show success toast
       toast.success(`User ${data.username} registered successfully!`);
       //setSuccessMessage(`User ${data.username} registered successfully!`);
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      navigate("/login");
     } catch (err) {
       console.error("Registration error:", err.response || err.message);
       setError("Registration failed. Please try again.");
