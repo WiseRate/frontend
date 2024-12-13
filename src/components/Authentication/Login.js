@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from './userApi';
 import './auth.css';
 import Cookies from 'js-cookie';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -87,7 +87,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-            <ToastContainer />
+            
         </div>
     );
 };

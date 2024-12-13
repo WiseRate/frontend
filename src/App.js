@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import DownloadPdf from './components/Amortization/downloadPdf';
 import axios from 'axios';
 import Footer from './components/Layout/Footer';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -197,6 +198,7 @@ function App() {
         <Route path="/register" element={<Register />} />
        
       </Routes>
+      <ToastContainer />
 <Footer />  
     </div>
   );

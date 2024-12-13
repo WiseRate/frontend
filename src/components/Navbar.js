@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { Container, Box, Link, Button, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { use } from 'react';
 
 const Navbar = () => {
@@ -30,6 +30,7 @@ const Navbar = () => {
     setIsLoggedIn(false);
     console.log("User logged out, showing success toast");
     toast.success(`You have been logged out`);
+    navigate('/');
   };
 
   return (
@@ -77,17 +78,7 @@ const Navbar = () => {
           </Toolbar>
         </Container>
       </AppBar>
-      <ToastContainer 
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      
     </>
   )
 }

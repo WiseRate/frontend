@@ -1,6 +1,6 @@
 import React, { useState , useEffect} from "react";
 import { createUser } from "./userApi";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 
 import "./auth.css";
@@ -33,7 +33,11 @@ const RegisterPage = () => {
       // Show success toast
       toast.success(`User ${data.username} registered successfully!`);
       //setSuccessMessage(`User ${data.username} registered successfully!`);
+      
       navigate("/login");
+    //   setTimeout(() => {
+    // }, 1000);
+
     } catch (err) {
       console.error("Registration error:", err.response || err.message);
       setError("Registration failed. Please try again.");
@@ -102,8 +106,7 @@ const RegisterPage = () => {
         </div>
         
       </div>
-       {/* Toast Container to display toast notifications  */}
-      <ToastContainer />
+
     </div>
   );
 };
