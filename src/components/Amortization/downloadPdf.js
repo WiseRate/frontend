@@ -4,8 +4,7 @@ import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import { Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { use } from "react";
+import { toast } from "react-toastify";
 
 function DownloadPdf({ data, authHeader }) {
   const navigate = useNavigate();
@@ -27,6 +26,7 @@ function DownloadPdf({ data, authHeader }) {
     //check if the authentication header is missing
     if (!authHeader) {
       console.error("Authentication token is missing");
+      toast.error("Please login to download the PDF.");
       navigate("/login");
       return;
     }
@@ -61,10 +61,12 @@ function DownloadPdf({ data, authHeader }) {
 
       // Trigger the download
       link.click();
+      toast.success("PDF downloaded successfully.");
 
       console.log("PDF downloaded successfully.");
     } catch (error) {
       console.error("Error downloading PDF:", error);
+      toast.error("Error downloading PDF.");
     }
   };
 
@@ -76,6 +78,7 @@ function DownloadPdf({ data, authHeader }) {
         onClick={handleDownloadPdf}
         startIcon={<DownloadIcon />}
       ></Button>
+
     </Box>
   );
 }
