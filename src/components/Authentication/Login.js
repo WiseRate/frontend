@@ -4,7 +4,7 @@ import { login } from './userApi';
 import './auth.css';
 import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
     // State to store the form data (username, password)

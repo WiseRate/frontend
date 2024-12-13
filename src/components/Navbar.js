@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -6,24 +6,32 @@ import { Container, Box, Link, Button, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { use } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   // Check if the user is already logged in (cookie is present)
   const userCookie = Cookies.get('user');
-  const isLoggedIn = Boolean(userCookie);
+  // const isLoggedIn = Boolean(userCookie);
+
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+  useEffect(() => {
+    if (Cookies.get('user') !== undefined) {
+      setIsLoggedIn(true);
+    }
+  }, [isLoggedIn]);
+
 
   // Function to handle logout
   const handleLogout = () => {
     Cookies.remove('user');
+    setIsLoggedIn(false);
     console.log("User logged out, showing success toast");
-    toast.success(`Successfully, You have been logged out`);
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
+    toast.success(`You have been logged out`);
   };
+
   return (
     <>
       <AppBar position="static">

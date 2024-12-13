@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import DownloadPdf from './components/Amortization/downloadPdf';
 import axios from 'axios';
 import Footer from './components/Layout/Footer';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 

@@ -2,7 +2,7 @@ import React, { useState , useEffect} from "react";
 import { createUser } from "./userApi";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+
 import "./auth.css";
 
 const RegisterPage = () => {
