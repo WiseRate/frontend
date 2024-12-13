@@ -4,10 +4,11 @@ import { Button, Box, Typography, Table, TableBody, TableCell, TableContainer, T
 import Cookies from 'js-cookie';
 import './Amortization.css';
 import DownloadPdf from './downloadPdf';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
+const AmortizationSchedule = ({ loanAmount = 0, interestRate = 0, term = 0 }) => {
   const [amortizationData, setAmortizationData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [downPayment, setDownPayment] = useState(100000);
@@ -15,6 +16,8 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
   const [error, setError] = useState(null);
   const [authHeader, setAuthHeader] = useState('');
   const BASE_URL = process.env.REACT_APP_API_URL;
+
+  const navigate = useNavigate();
 
   const data = {
     loanType: "HOME_LOAN",
@@ -37,7 +40,13 @@ const AmortizationSchedule = ({ loanAmount, interestRate, term }) => {
     setLoading(true);
     setError(null);
 
-    setAuthHeader(Cookies.get('user'));
+    if (loanAmount === 0 || interestRate === 0 || term === 0) {
+      navigate('/mortgage-calculator');
+      return;
+    }
+
+
+    setAuthHeader(JSON.parse(Cookies.get('user')));
 
     axios
       // .post('http://localhost:8080/api/v1/amortization-schedule', data, {

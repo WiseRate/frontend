@@ -15,6 +15,7 @@ import axios from 'axios';
 import Footer from './components/Layout/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './components/Authentication/Dashboard';
 
 function App() {
 
@@ -196,6 +197,8 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
        
       </Routes>
       <ToastContainer />
